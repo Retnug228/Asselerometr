@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             val y = event.values[1]
             val z = event.values[2]
 
-            textView.text = "x: %.2f\\n y: %.2f\\n z: %.2f".format(x, y, z)
+            textView.text = "x: %.2f\n y: %.2f\n z: %.2f".format(x, y, z)
         }
     }
 
