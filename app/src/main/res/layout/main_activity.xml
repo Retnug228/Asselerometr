@@ -7,6 +7,14 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="355dp"
+        android:layout_height="215dp"
         android:text="TextView" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="384dp"
+        android:layout_below="@id/textView"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
