@@ -168,23 +168,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         fileOutputStream?.flush()
         fileOutputStream?.close()
 
-
-//        val csvData = StringBuilder()
-//        csvData.append("Timestamp,X,Y,Z\\n")
-//        for (i in xValues.indices) {
-//            csvData.append("${xValues[i].x},${xValues[i].y},${yValues[i].y},${zValues[i].y}\\n")
-//        }
-//
-//        val csvFile = File(dataDir, "Данные_$currentDateTime.csv")
-//
-//        fileOutputStream = FileOutputStream(csvFile)
-//        fileOutputStream.write(csvData.toString().toByteArray())
-//
-//
-//        fileOutputStream?.flush()
-//        fileOutputStream?.close()
-
-
     }
 
 
