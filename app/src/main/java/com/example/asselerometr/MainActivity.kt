@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
         val currentDateTime =
-            SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault()).format(Date())
 
         val bitmap = Bitmap.createBitmap(chart.width, chart.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
