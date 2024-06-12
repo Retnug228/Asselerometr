@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
-    private var gyroscope: Sensor? = null
+//    private var gyroscope: Sensor? = null
     private lateinit var textView1: TextView
     private lateinit var textView2: TextView
     private lateinit var chart: LineChart
@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private val yValues = mutableListOf<Entry>()
     private val zValues = mutableListOf<Entry>()
 
-    private val gyroXValues = mutableListOf<Entry>()
-    private val gyroYValues = mutableListOf<Entry>()
-    private val gyroZValues = mutableListOf<Entry>()
+//    private val gyroXValues = mutableListOf<Entry>()
+//    private val gyroYValues = mutableListOf<Entry>()
+//    private val gyroZValues = mutableListOf<Entry>()
 
     private var timestamp = 0f
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+        //gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
 
         setupChart()
 
@@ -96,9 +96,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         accelerometer?.also { accel ->
             sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)
         }
-        gyroscope?.also { gyro ->
-            sensorManager.registerListener(this, gyro, SensorManager.SENSOR_DELAY_NORMAL)
-        }
+//        gyroscope?.also { gyro ->
+//            sensorManager.registerListener(this, gyro, SensorManager.SENSOR_DELAY_NORMAL)
+//        }
     }
 
     override fun onPause() {
@@ -184,17 +184,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 yValues.add(Entry(timestamp, y))
                 zValues.add(Entry(timestamp, z))
             }
-            Sensor.TYPE_GYROSCOPE -> {
-                val x = event.values[0]
-                val y = event.values[1]
-                val z = event.values[2]
-
-                textView2.text = "Gyro x: %.2f y: %.2f z: %.2f".format(x, y, z)
-
-                gyroXValues.add(Entry(timestamp, x))
-                gyroYValues.add(Entry(timestamp, y))
-                gyroZValues.add(Entry(timestamp, z))
-            }
+//            Sensor.TYPE_GYROSCOPE -> {
+//                val x = event.values[0]
+//                val y = event.values[1]
+//                val z = event.values[2]
+//
+//                textView2.text = "Gyro x: %.2f y: %.2f z: %.2f".format(x, y, z)
+//
+//                gyroXValues.add(Entry(timestamp, x))
+//                gyroYValues.add(Entry(timestamp, y))
+//                gyroZValues.add(Entry(timestamp, z))
+//            }
         }
 
         timestamp += 0.1f
@@ -229,22 +229,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             setDrawCircles(false)  
         }
 
-        val gyroXDataSet = LineDataSet(gyroXValues, "Gyro X").apply {
-            color = ContextCompat.getColor(this@MainActivity, R.color.yellow)
-            setDrawCircles(false)  
-        }
+//        val gyroXDataSet = LineDataSet(gyroXValues, "Gyro X").apply {
+//            color = ContextCompat.getColor(this@MainActivity, R.color.yellow)
+//            setDrawCircles(false)
+//        }
+//
+//        val gyroYDataSet = LineDataSet(gyroYValues, "Gyro Y").apply {
+//            color = ContextCompat.getColor(this@MainActivity, R.color.teal_200)
+//            setDrawCircles(false)
+//        }
+//
+//        val gyroZDataSet = LineDataSet(gyroZValues, "Gyro Z").apply {
+//            color = ContextCompat.getColor(this@MainActivity, R.color.purple)
+//            setDrawCircles(false)
+//        }
 
-        val gyroYDataSet = LineDataSet(gyroYValues, "Gyro Y").apply {
-            color = ContextCompat.getColor(this@MainActivity, R.color.teal_200)
-            setDrawCircles(false)  
-        }
-
-        val gyroZDataSet = LineDataSet(gyroZValues, "Gyro Z").apply {
-            color = ContextCompat.getColor(this@MainActivity, R.color.purple)
-            setDrawCircles(false)  
-        }
-
-        val lineData = LineData(xDataSet, yDataSet, zDataSet, gyroXDataSet, gyroYDataSet, gyroZDataSet)
+        val lineData = LineData(xDataSet, yDataSet, zDataSet)//, gyroXDataSet, gyroYDataSet, gyroZDataSet)
 
         chart.data = lineData
         chart.invalidate()
@@ -256,9 +256,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         yValues.clear()
         zValues.clear()
 
-        gyroXValues.clear()
-        gyroYValues.clear()
-        gyroZValues.clear()
+//        gyroXValues.clear()
+//        gyroYValues.clear()
+//        gyroZValues.clear()
 
         timestamp = 0f
 
@@ -273,8 +273,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         accelerometer?.also { accel ->
             sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_NORMAL)
         }
-        gyroscope?.also { gyro ->
-            sensorManager.registerListener(this, gyro, SensorManager.SENSOR_DELAY_NORMAL)
-        }
+//        gyroscope?.also { gyro ->
+//            sensorManager.registerListener(this, gyro, SensorManager.SENSOR_DELAY_NORMAL)
+//        }
     }
 }
