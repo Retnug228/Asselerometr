@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 yValues.add(Entry(timestamp, y))
                 zValues.add(Entry(timestamp, z))
             }
-//            Sensor.TYPE_GYROSCOPE -> {
+////            Sensor.TYPE_GYROSCOPE -> {
 //                val x = event.values[0]
 //                val y = event.values[1]
 //                val z = event.values[2]
