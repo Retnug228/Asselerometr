@@ -32,12 +32,16 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVPrinter
+import java.io.FileWriter
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
-//    private var gyroscope: Sensor? = null
+
+    //    private var gyroscope: Sensor? = null
     private lateinit var textView1: TextView
     private lateinit var textView2: TextView
     private lateinit var chart: LineChart
@@ -161,13 +165,31 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         try {
             fileOutputStream = FileOutputStream(chartFile)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            fileOutputStream.flush()
+            fileOutputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            fileOutputStream?.close()
+        }
+
+        // Сохранение данных акселерометра в CSV файл с использованием Apache Commons CSV
+        val csvFile = File(dataDir, "Данные_$currentDateTime.csv")
+        try {
+            FileWriter(csvFile).use { writer ->
+                CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Time", "X", "Y", "Z")).use { csvPrinter ->
+                    for (i in xValues.indices) {
+                        val time = String.format("%.2f", xValues[i].x)
+                        val x = String.format("%.2f", xValues[i].y)
+                        val y = String.format("%.2f", yValues[i].y)
+                        val z = String.format("%.2f", zValues[i].y)
+                        csvPrinter.printRecord(time, x, y, z)
+                    }
+                }
+            }
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
-        fileOutputStream?.flush()
-        fileOutputStream?.close()
-
     }
 
 
@@ -216,17 +238,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private fun updateChart() {
         val xDataSet = LineDataSet(xValues, "Acc X").apply {
             color = ContextCompat.getColor(this@MainActivity, R.color.red)
-            setDrawCircles(false)  
+            setDrawCircles(false)
         }
 
         val yDataSet = LineDataSet(yValues, "Acc Y").apply {
             color = ContextCompat.getColor(this@MainActivity, R.color.green)
-            setDrawCircles(false)  
+            setDrawCircles(false)
         }
 
         val zDataSet = LineDataSet(zValues, "Acc Z").apply {
             color = ContextCompat.getColor(this@MainActivity, R.color.blue)
-            setDrawCircles(false)  
+            setDrawCircles(false)
         }
 
 //        val gyroXDataSet = LineDataSet(gyroXValues, "Gyro X").apply {
@@ -244,7 +266,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 //            setDrawCircles(false)
 //        }
 
-        val lineData = LineData(xDataSet, yDataSet, zDataSet)//, gyroXDataSet, gyroYDataSet, gyroZDataSet)
+        val lineData =
+            LineData(xDataSet, yDataSet, zDataSet)//, gyroXDataSet, gyroYDataSet, gyroZDataSet)
 
         chart.data = lineData
         chart.invalidate()
