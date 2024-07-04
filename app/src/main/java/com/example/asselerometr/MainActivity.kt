@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.main_activity)
 
         textView1 = findViewById(R.id.textView1)
-        textView2 = findViewById(R.id.textView2)
+        //textView2 = findViewById(R.id.textView2)
         chart = findViewById(R.id.chart)
         startButton = findViewById(R.id.startButton)
         stopButton = findViewById(R.id.stopButton)
