@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             fileOutputStream?.close()
         }
 
-        // Сохранение данных акселерометра в CSV файл с использованием Apache Commons CSV
+        // Сохраненка данных акселерометра в CSV файл
         val csvFile = File(dataDir, "Данные_$currentDateTime.csv")
         try {
             FileWriter(csvFile).use { writer ->
